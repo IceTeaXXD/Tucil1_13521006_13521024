@@ -6,7 +6,7 @@ public class HillClimbingBot extends Bot {
      * This bot is a hill climbing bot. It will evaluate the current state of the
      * board and make a move that will maximize the score.
      * 
-     * @param board The current state of the board.
+     * @param board      The current state of the board.
      * @param roundsLeft The number of rounds left in the game.
      * 
      * @return The move that the bot will make.
@@ -68,8 +68,8 @@ public class HillClimbingBot extends Bot {
      * Get the score of the player
      * 
      * @param board is the game board
-     * @param i The row number of the button clicked.
-     * @param j The column number of the button clicked.
+     * @param i     The row number of the button clicked.
+     * @param j     The column number of the button clicked.
      * 
      * @return the score of the player
      *         [0] is the score of the player (X)
@@ -125,19 +125,4 @@ public class HillClimbingBot extends Bot {
         }
         return board;
     }
-
-        public void printBoard(Button[][] board) {
-        // it must be 8x8 grid, pay attention to the whitespaces
-        for (int i = 0; i < 8; i++) {
-            System.out.print("|");
-            for (int j = 0; j < 8; j++) {
-                if (board[i][j].getText().equals(""))
-                    System.out.print(" |");
-                else
-                    System.out.print(board[i][j].getText() + "|");
-            }
-            System.out.println();
-        }
-    }
-
 }
