@@ -21,7 +21,7 @@ public class MinimaxBot extends Bot {
      * This bot is a minimax bot. It will evaluate the current state of the board
      * and make a move that will maximize the score.
      * 
-     * @param board The current state of the board.
+     * @param board      The current state of the board.
      * @param roundsLeft The number of rounds left in the game.
      * 
      * @return The move that the bot will make.
@@ -49,12 +49,13 @@ public class MinimaxBot extends Bot {
 
     /**
      * This method implements the minimax algorithm.
-     * @param board, the current state of the board
-     * @param depth, the depth of the tree
-     * @param alpha, the alpha value
-     * @param beta, the beta value
+     * 
+     * @param board,        the current state of the board
+     * @param depth,        the depth of the tree
+     * @param alpha,        the alpha value
+     * @param beta,         the beta value
      * @param isMaximizing, whether the bot is maximizing or not
-     * @param roundsLeft, the number of rounds left
+     * @param roundsLeft,   the number of rounds left
      * 
      * @return the score of the board after scoring with minimax
      */
@@ -121,8 +122,8 @@ public class MinimaxBot extends Bot {
      * Get the score of the player
      * 
      * @param board is the game board
-     * @param i The row number of the button clicked.
-     * @param j The column number of the button clicked.
+     * @param i     The row number of the button clicked.
+     * @param j     The column number of the button clicked.
      * 
      * @return the score of the player
      *         [0] is the score of the player (X)
@@ -158,10 +159,21 @@ public class MinimaxBot extends Bot {
         // Update scores for X's and O's accordingly.
         for (int x = startRow; x <= endRow; x++) {
             for (int y = startColumn; y <= endColumn; y++) {
-                if (board[x][y].getText().equals("X") && player.equals("O")) {
-                    board[x][y].setText("O");
-                } else if (board[x][y].getText().equals("O") && player.equals("X")) {
-                    board[x][y].setText("X");
+                // if x and y is diagonal to i and j, skip
+                if (i - 1 == x && j - 1 == y) {
+                    continue;
+                } else if (i - 1 == x && j + 1 == y) {
+                    continue;
+                } else if (i + 1 == x && j - 1 == y) {
+                    continue;
+                } else if (i + 1 == x && j + 1 == y) {
+                    continue;
+                } else {
+                    if (board[x][y].getText().equals("X") && player.equals("O")) {
+                        board[x][y].setText("O");
+                    } else if (board[x][y].getText().equals("O") && player.equals("X")) {
+                        board[x][y].setText("X");
+                    }
                 }
             }
         }

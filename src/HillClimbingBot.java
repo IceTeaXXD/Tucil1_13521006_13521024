@@ -96,10 +96,21 @@ public class HillClimbingBot extends Bot {
         // Update scores for X's and O's accordingly.
         for (int x = startRow; x <= endRow; x++) {
             for (int y = startColumn; y <= endColumn; y++) {
-                if (board[x][y].getText().equals("X") && player.equals("O")) {
-                    board[x][y].setText("O");
-                } else if (board[x][y].getText().equals("O") && player.equals("X")) {
-                    board[x][y].setText("X");
+                // if x and y is diagonal to i and j, skip
+                if (i - 1 == x && j - 1 == y) {
+                    continue;
+                } else if (i - 1 == x && j + 1 == y) {
+                    continue;
+                } else if (i + 1 == x && j - 1 == y) {
+                    continue;
+                } else if (i + 1 == x && j + 1 == y) {
+                    continue;
+                } else {
+                    if (board[x][y].getText().equals("X") && player.equals("O")) {
+                        board[x][y].setText("O");
+                    } else if (board[x][y].getText().equals("O") && player.equals("X")) {
+                        board[x][y].setText("X");
+                    }
                 }
             }
         }
