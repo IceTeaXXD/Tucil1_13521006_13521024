@@ -16,6 +16,16 @@ import javafx.scene.layout.RowConstraints;
 import java.io.IOException;
 
 public class MinimaxBot extends Bot {
+
+    /**
+     * This bot is a minimax bot. It will evaluate the current state of the board
+     * and make a move that will maximize the score.
+     * 
+     * @param board The current state of the board.
+     * @param roundsLeft The number of rounds left in the game.
+     * 
+     * @return The move that the bot will make.
+     */
     public int[] move(Button[][] board, int roundsLeft) {
         int[] move = new int[2];
         int bestScore = Integer.MIN_VALUE;
@@ -25,7 +35,7 @@ public class MinimaxBot extends Bot {
                 if (board[i][j].getText().equals("")) {
                     board[i][j].setText("O");
                     board = updateGameBoard(i, j, board, "O");
-                    int score = minimax(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, false, roundsLeft, i, j);
+                    int score = minimax(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, false, roundsLeft);
                     if (score > bestScore) {
                         bestScore = score;
                         move = new int[] { i, j };
@@ -37,8 +47,18 @@ public class MinimaxBot extends Bot {
         return move;
     }
 
-    public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft, int i,
-            int j) {
+    /**
+     * This method implements the minimax algorithm.
+     * @param board, the current state of the board
+     * @param depth, the depth of the tree
+     * @param alpha, the alpha value
+     * @param beta, the beta value
+     * @param isMaximizing, whether the bot is maximizing or not
+     * @param roundsLeft, the number of rounds left
+     * 
+     * @return the score of the board after scoring with minimax
+     */
+    public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft) {
         // Check if the game is over
         if ((boardElements(board) - 8) / 2 >= roundsLeft) {
             return evaluate(board);
@@ -58,7 +78,7 @@ public class MinimaxBot extends Bot {
                         }
                         board[startRow][startColumn].setText("O");
                         board = updateGameBoard(startRow, startColumn, board, "O");
-                        int score = minimax(board, depth + 1, alpha, beta, false, roundsLeft, startRow, startColumn);
+                        int score = minimax(board, depth + 1, alpha, beta, false, roundsLeft);
                         board = tempBoard;
                         bestScore = Math.max(score, bestScore);
                         alpha = Math.max(alpha, score);
@@ -83,7 +103,7 @@ public class MinimaxBot extends Bot {
                         }
                         board[startRow][startColumn].setText("X");
                         board = updateGameBoard(startRow, startColumn, board, "X");
-                        int score = minimax(board, depth + 1, alpha, beta, true, roundsLeft, startRow, startColumn);
+                        int score = minimax(board, depth + 1, alpha, beta, true, roundsLeft);
                         board = tempBoard;
                         bestScore = Math.min(score, bestScore);
                         beta = Math.min(beta, score);
@@ -101,17 +121,12 @@ public class MinimaxBot extends Bot {
      * Get the score of the player
      * 
      * @param board is the game board
+     * @param i The row number of the button clicked.
+     * @param j The column number of the button clicked.
      * 
      * @return the score of the player
      *         [0] is the score of the player (X)
      *         [1] is the score of the bot (O)
-     */
-    /**
-     * Change adjacent cells to X's or O's.
-     *
-     * @param i The row number of the button clicked.
-     * @param j The column number of the button clicked.
-     *
      */
     private Button[][] updateGameBoard(int i, int j, Button[][] board, String player) {
         // Value of indices to control the lower/upper bound of rows and columns
@@ -153,6 +168,14 @@ public class MinimaxBot extends Bot {
         return board;
     }
 
+    /**
+     * This method evaluates the current state of the board and returns a score
+     * based on the number of X's and O's on the board.
+     * 
+     * @param board The current state of the board.
+     * 
+     * @return The score of the current state of the board.
+     */
     public int evaluate(Button[][] board) {
         int playerXScore = 0;
         int playerOScore = 0;

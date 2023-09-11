@@ -1,6 +1,16 @@
 import javafx.scene.control.Button;
 
 public class HillClimbingBot extends Bot {
+
+    /**
+     * This bot is a hill climbing bot. It will evaluate the current state of the
+     * board and make a move that will maximize the score.
+     * 
+     * @param board The current state of the board.
+     * @param roundsLeft The number of rounds left in the game.
+     * 
+     * @return The move that the bot will make.
+     */
     public int[] move(Button[][] board, int roundsLeft) {
         int[] move = new int[2];
         int bestScore = Integer.MIN_VALUE;
@@ -22,6 +32,14 @@ public class HillClimbingBot extends Bot {
         return move;
     }
 
+    /**
+     * This method evaluates the current state of the board and returns a score
+     * based on the number of X's and O's on the board.
+     * 
+     * @param board The current state of the board.
+     * 
+     * @return The score of the current state of the board.
+     */
     public int evaluate(Button[][] board) {
         int playerXScore = 0;
         int playerOScore = 0;
@@ -37,6 +55,17 @@ public class HillClimbingBot extends Bot {
         return playerOScore - playerXScore;
     }
 
+    /**
+     * Get the score of the player
+     * 
+     * @param board is the game board
+     * @param i The row number of the button clicked.
+     * @param j The column number of the button clicked.
+     * 
+     * @return the score of the player
+     *         [0] is the score of the player (X)
+     *         [1] is the score of the bot (O)
+     */
     private Button[][] updateGameBoard(int i, int j, Button[][] board, String player) {
         // Value of indices to control the lower/upper bound of rows and columns
         // in order to change surrounding/adjacent X's and O's only on the game board.
