@@ -18,6 +18,14 @@ public class HillClimbingBot extends Bot {
             for (int j = 0; j < 8; j++) {
                 // Check if the board is available
                 if (board[i][j].getText().equals("")) {
+                    // Copy the board
+                    Button[][] tempBoard = new Button[8][8];
+                    for (int x = 0; x < 8; x++) {
+                        for (int y = 0; y < 8; y++) {
+                            tempBoard[x][y] = new Button();
+                            tempBoard[x][y].setText(board[x][y].getText());
+                        }
+                    }
                     board[i][j].setText("O");
                     board = updateGameBoard(i, j, board, "O");
                     int score = evaluate(board);
@@ -25,7 +33,8 @@ public class HillClimbingBot extends Bot {
                         bestScore = score;
                         move = new int[] { i, j };
                     }
-                    board[i][j].setText("");
+                    // Reset the board
+                    board = tempBoard;
                 }
             }
         }
@@ -115,6 +124,20 @@ public class HillClimbingBot extends Bot {
             }
         }
         return board;
+    }
+
+        public void printBoard(Button[][] board) {
+        // it must be 8x8 grid, pay attention to the whitespaces
+        for (int i = 0; i < 8; i++) {
+            System.out.print("|");
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j].getText().equals(""))
+                    System.out.print(" |");
+                else
+                    System.out.print(board[i][j].getText() + "|");
+            }
+            System.out.println();
+        }
     }
 
 }
