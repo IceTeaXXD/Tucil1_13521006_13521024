@@ -33,86 +33,120 @@ public class MinimaxBot extends Bot {
             for (int j = 0; j < 8; j++) {
                 // Check if the board is available
                 if (board[i][j].getText().equals("")) {
-                    board[i][j].setText("O");
-                    board = updateGameBoard(i, j, board, "O");
-                    int score = minimax(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, false, roundsLeft);
+                    Button[][] copyBoard = new Button[8][8];
+                    // Copy the board
+                    for (int x = 0; x < 8; x++) {
+                        for (int y = 0; y < 8; y++) {
+                            copyBoard[x][y] = new Button();
+                            copyBoard[x][y].setText(board[x][y].getText());
+                        }
+                    }
+                    // Make a move
+                    copyBoard[i][j].setText("O");
+                    copyBoard = updateGameBoard(i, j, copyBoard, "O");
+                    // Evaluate the board
+                    int score = minimax(copyBoard, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, false, roundsLeft);
+                    // Update the best score
                     if (score > bestScore) {
                         bestScore = score;
-                        move = new int[] { i, j };
+                        System.out.println("Best score: " + bestScore);
+                        // printBoard(copyBoard);
+                        // System.out.println();
+                        move[0] = i;
+                        move[1] = j;
                     }
-                    board[i][j].setText("");
                 }
             }
         }
         return move;
     }
 
-    /**
-     * This method implements the minimax algorithm.
-     * 
-     * @param board,        the current state of the board
-     * @param depth,        the depth of the tree
-     * @param alpha,        the alpha value
-     * @param beta,         the beta value
-     * @param isMaximizing, whether the bot is maximizing or not
-     * @param roundsLeft,   the number of rounds left
-     * 
-     * @return the score of the board after scoring with minimax
-     */
     public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft) {
-        // Check if the game is over
-        if ((boardElements(board) - 8) / 2 >= roundsLeft) {
+        // If the game is over or the depth is reached, evaluate the board
+        if (roundsLeft == 0 || depth == 3) {
             return evaluate(board);
         }
-
+        boolean prune = false;
+        // If it is the maximizing player's turn
         if (isMaximizing) {
             int bestScore = Integer.MIN_VALUE;
-            for (int startRow = 0; startRow < 8; startRow++) {
-                for (int startColumn = 0; startColumn < 8; startColumn++) {
-                    if (board[startRow][startColumn].getText().equals("")) {
-                        Button[][] tempBoard = new Button[8][8];
+            // Check all possible moves
+            for (int i = 0; i < 8; i++) {
+                if (prune) {
+                    break;
+                }
+                for (int j = 0; j < 8; j++) {
+                    // Check if the board is available
+                    if (board[i][j].getText().equals("")) {
+                        Button[][] copyBoard = new Button[8][8];
+                        // Copy the board
                         for (int x = 0; x < 8; x++) {
                             for (int y = 0; y < 8; y++) {
-                                tempBoard[x][y] = new Button();
-                                tempBoard[x][y].setText(board[x][y].getText());
+                                copyBoard[x][y] = new Button();
+                                copyBoard[x][y].setText(board[x][y].getText());
                             }
                         }
-                        board[startRow][startColumn].setText("O");
-                        board = updateGameBoard(startRow, startColumn, board, "O");
-                        int score = minimax(board, depth + 1, alpha, beta, false, roundsLeft);
-                        board = tempBoard;
+                        // Make a move
+                        copyBoard[i][j].setText("O");
+                        copyBoard = updateGameBoard(i, j, copyBoard, "O");
+                        // Evaluate the board
+                        int score = minimax(copyBoard, depth + 1, alpha, beta, false, roundsLeft - 1);
+                        // Update the best score
                         bestScore = Math.max(score, bestScore);
                         alpha = Math.max(alpha, score);
+                        // Prune the tree
                         if (beta <= alpha) {
+                            prune = true;
                             break;
                         }
                     }
                 }
             }
+            if (bestScore == Integer.MIN_VALUE) {
+                // return evaluate(board);
+                System.out.println("No move available");
+            }
             return bestScore;
-        } else {
+        }
+
+        // If it is the minimizing player's turn
+        else {
             int bestScore = Integer.MAX_VALUE;
-            for (int startRow = 0; startRow < 8; startRow++) {
-                for (int startColumn = 0; startColumn < 8; startColumn++) {
-                    if (board[startRow][startColumn].getText().equals("")) {
-                        Button[][] tempBoard = new Button[8][8];
+            // Check all possible moves
+            for (int i = 0; i < 8; i++) {
+                if (prune) {
+                    break;
+                }
+                for (int j = 0; j < 8; j++) {
+                    // Check if the board is available
+                    if (board[i][j].getText().equals("")) {
+                        Button[][] copyBoard = new Button[8][8];
+                        // Copy the board
                         for (int x = 0; x < 8; x++) {
                             for (int y = 0; y < 8; y++) {
-                                tempBoard[x][y] = new Button();
-                                tempBoard[x][y].setText(board[x][y].getText());
+                                copyBoard[x][y] = new Button();
+                                copyBoard[x][y].setText(board[x][y].getText());
                             }
                         }
-                        board[startRow][startColumn].setText("X");
-                        board = updateGameBoard(startRow, startColumn, board, "X");
-                        int score = minimax(board, depth + 1, alpha, beta, true, roundsLeft);
-                        board = tempBoard;
+                        // Make a move
+                        copyBoard[i][j].setText("X");
+                        copyBoard = updateGameBoard(i, j, copyBoard, "X");
+                        // Evaluate the board
+                        int score = minimax(copyBoard, depth + 1, alpha, beta, true, roundsLeft - 1);
+                        // Update the best score
                         bestScore = Math.min(score, bestScore);
                         beta = Math.min(beta, score);
+                        // Prune the tree
                         if (beta <= alpha) {
+                            prune = true;
                             break;
                         }
                     }
                 }
+            }
+            if (bestScore == Integer.MAX_VALUE) {
+                // return evaluate(board);
+                System.out.println("No move available");
             }
             return bestScore;
         }
