@@ -1,24 +1,29 @@
+.root{
+    -fx-background-color: #FFF6DC;
+}
+
 #gameBoard{
     -fx-font-weight: bold;
 }
 
 #boxPane, playerXBoxPane, playerOBoxPane{
-    -fx-background-color: white;
-    -fx-border-color: #D3D3D3;
+    -fx-background-color: #FFF6DC;
+    -fx-border-color: #FFDBAA;
 }
 
-
 .button{
-    -fx-background-color: #F0F8FF;
-    -fx-border-color: #D3D3D3;
+    -fx-background-color: #96C291;
+    -fx-border-color: #FFDBAA;
 }
 
 .button:hover{
     -fx-opacity: 0.2;
     -fx-border-width: 3px;
+    -fx-background-color: #FFF6DC;
 }
 
 #gameButton:hover{
     -fx-opacity: 0.5;
     -fx-border-width: 1px;
+    -fx-background-color: #FFF6DC;
 }
