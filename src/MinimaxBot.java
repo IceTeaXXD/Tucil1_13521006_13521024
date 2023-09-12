@@ -1,17 +1,4 @@
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
 
 import java.io.IOException;
 
@@ -63,7 +50,7 @@ public class MinimaxBot extends Bot {
 
     public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft) {
         // If the game is over or the depth is reached, evaluate the board
-        if (roundsLeft == 0 || depth == 3) {
+        if (roundsLeft == 0 || depth == 5) {
             return evaluate(board);
         }
         boolean prune = false;
