@@ -1,17 +1,4 @@
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
 
 import java.io.IOException;
 
@@ -63,7 +50,7 @@ public class MinimaxBot extends Bot {
 
     public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft) {
         // If the game is over or the depth is reached, evaluate the board
-        if (roundsLeft == 0 || depth == 3) {
+        if (roundsLeft == 0 || depth == 5) {
             return evaluate(board);
         }
         boolean prune = false;
@@ -167,50 +154,19 @@ public class MinimaxBot extends Bot {
         // Value of indices to control the lower/upper bound of rows and columns
         // in order to change surrounding/adjacent X's and O's only on the game board.
         // Four boundaries: First & last row and first & last column.
-        int startRow, endRow, startColumn, endColumn;
-
-        if (i - 1 < 0) // If clicked button in first row, no preceding row exists.
-            startRow = i;
-        else // Otherwise, the preceding row exists for adjacency.
-            startRow = i - 1;
-
-        if (i + 1 >= 8) // If clicked button in last row, no subsequent/further row exists.
-            endRow = i;
-        else // Otherwise, the subsequent row exists for adjacency.
-            endRow = i + 1;
-
-        if (j - 1 < 0) // If clicked on first column, lower bound of the column has been reached.
-            startColumn = j;
-        else
-            startColumn = j - 1;
-
-        if (j + 1 >= 8) // If clicked on last column, upper bound of the column has been reached.
-            endColumn = j;
-        else
-            endColumn = j + 1;
-
-        // Search for adjacency for X's and O's or vice versa, and replace them.
-        // Update scores for X's and O's accordingly.
-        for (int x = startRow; x <= endRow; x++) {
-            for (int y = startColumn; y <= endColumn; y++) {
-                // if x and y is diagonal to i and j, skip
-                if (i - 1 == x && j - 1 == y) {
-                    continue;
-                } else if (i - 1 == x && j + 1 == y) {
-                    continue;
-                } else if (i + 1 == x && j - 1 == y) {
-                    continue;
-                } else if (i + 1 == x && j + 1 == y) {
-                    continue;
-                } else {
-                    if (board[x][y].getText().equals("X") && player.equals("O")) {
-                        board[x][y].setText("O");
-                    } else if (board[x][y].getText().equals("O") && player.equals("X")) {
-                        board[x][y].setText("X");
-                    }
-                }
-            }
+        if (i - 1 >= 0 && !board[i - 1][j].getText().equals(player)) {
+            board[i - 1][j].setText(player);
         }
+        if (i + 1 < 8 && !board[i + 1][j].getText().equals(player)) {
+            board[i + 1][j].setText(player);
+        }
+        if (j - 1 >= 0 && !board[i][j - 1].getText().equals(player)) {
+            board[i][j - 1].setText(player);
+        }
+        if (j + 1 < 8 && !board[i][j + 1].getText().equals(player)) {
+            board[i][j + 1].setText(player);
+        }
+
         return board;
     }
 
