@@ -15,12 +15,10 @@ public class MinimaxBot extends Bot {
      */
     public int[] move(Button[][] board, int roundsLeft) {
         int[] move = new int[2];
-        int ctr = 1;
         int bestScore = Integer.MIN_VALUE;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 // Check if the board is available
-                // System.out.println("iteration: " + ctr++);
                 if (board[i][j].getText().equals("")) {
                     Button[][] copyBoard = new Button[8][8];
                     // Copy the board
@@ -36,13 +34,8 @@ public class MinimaxBot extends Bot {
                     // Evaluate the board
                     int score = minimax(copyBoard, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, false, roundsLeft);
                     // Update the best score
-                    // System.out.println("score: " + score);
-                    if (score > bestScore) {
+                    if (score >= bestScore) {
                         bestScore = score;
-                        // System.out.println("====CHOSEN====");
-                        // System.out.println("Best score: " + bestScore);
-                        // printBoard(copyBoard);
-                        // System.out.println();
                         move[0] = i;
                         move[1] = j;
                     }
@@ -51,21 +44,9 @@ public class MinimaxBot extends Bot {
         }
         return move;
     }
-    public int topscore = Integer.MIN_VALUE;
     public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft) {
         // If the game is over or the depth is reached, evaluate the board
         if (roundsLeft == 0 || depth == 3) {
-            // int score = evaluate(board);
-            // if (score > topscore){
-            //     topscore = score;
-            //     System.out.println("Best score: " + topscore);
-            //     printBoard(board);
-            //     System.out.println();
-            // }
-            // if (score == -2){
-            //     printBoard(board);
-            // }
-            // System.out.println("score: " + evaluate(board));
             return evaluate(board);
         }
         boolean prune = false;
@@ -105,15 +86,13 @@ public class MinimaxBot extends Bot {
                 }
             }
             if (bestScore == Integer.MIN_VALUE) {
-                // return evaluate(board);
-                System.out.println("No move available");
+                System.out.println("Maximizing No move available");
             }
             return bestScore;
         }
 
         // If it is the minimizing player's turn
         else {
-            // int bestScore = Integer.MIN_VALUE;
             int bestScore = Integer.MAX_VALUE;
             // Check all possible moves
             for (int i = 0; i < 8; i++) {
@@ -137,7 +116,6 @@ public class MinimaxBot extends Bot {
                         // Evaluate the board
                         int score = minimax(copyBoard, depth + 1, alpha, beta, true, roundsLeft - 1);
                         // Update the best score
-                        // bestScore = Math.max(score, bestScore);
                         bestScore = Math.min(score, bestScore);
                         beta = Math.min(beta, score);
                         // Prune the tree
@@ -149,8 +127,8 @@ public class MinimaxBot extends Bot {
                 }
             }
             if (bestScore == Integer.MAX_VALUE) {
-                // return evaluate(board);
-                System.out.println("No move available");
+                bestScore = Integer.MIN_VALUE;
+                System.out.println("Minimizing No move available");
             }
             return bestScore;
         }
@@ -208,30 +186,5 @@ public class MinimaxBot extends Bot {
             }
         }
         return playerOScore - playerXScore;
-    }
-
-    public void printBoard(Button[][] board) {
-        // it must be 8x8 grid, pay attention to the whitespaces
-        for (int i = 0; i < 8; i++) {
-            System.out.print("|");
-            for (int j = 0; j < 8; j++) {
-                if (board[i][j].getText().equals(""))
-                    System.out.print(" |");
-                else
-                    System.out.print(board[i][j].getText() + "|");
-            }
-            System.out.println();
-        }
-    }
-
-    public int boardElements(Button[][] board) {
-        int elements = 0;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (!board[i][j].getText().equals(""))
-                    elements++;
-            }
-        }
-        return elements;
     }
 }
