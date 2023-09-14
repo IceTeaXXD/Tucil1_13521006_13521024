@@ -1,7 +1,7 @@
 # Adversarial Adjacency-Strategy-Game
 > Tugas Kecil 1 IF3170 Inteligensi Buatan
 <kbd>
-  <img src="https://github.com/IceTeaXXD/Tucil1_AI_Minimax/blob/main/screenshots/New-game-board.png">
+  ![](screenshots/New-game-board.png)
 </kbd>
 
 ## Table of Contents
@@ -27,8 +27,19 @@ Fitur tambahan yang dibuat kelompok serta dapat digunakan pada program ini adala
 
 ## Usage
 Terdapat beberapa cara untuk menjalankan program:
-- Ketik `make file` pada terminal
-- Ketik `./run.bat` pada terminal
+- Menggunakan Make
+```
+make run
+```
+- Menggunakan runner
+```
+./run.bat
+```
+- Compile manual menggunakan terminal
+```
+javac -cp ./src --module-path "./javafx-sdk/lib" --add-modules=javafx.controls,javafx.fxml src/*.java
+java -cp ./src --module-path "./javafx-sdk/lib" --add-modules=javafx.controls,javafx.fxml Main
+```
 
 ## Project Status
 On going
