@@ -39,8 +39,8 @@ public class MinimaxBot extends Bot {
                     // System.out.println("score: " + score);
                     if (score > bestScore) {
                         bestScore = score;
-                        System.out.println("====CHOSEN====");
-                        System.out.println("Best score: " + bestScore);
+                        // System.out.println("====CHOSEN====");
+                        // System.out.println("Best score: " + bestScore);
                         // printBoard(copyBoard);
                         // System.out.println();
                         move[0] = i;
@@ -55,13 +55,13 @@ public class MinimaxBot extends Bot {
     public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft) {
         // If the game is over or the depth is reached, evaluate the board
         if (roundsLeft == 0 || depth == 3) {
-            int score = evaluate(board);
-            if (score > topscore){
-                topscore = score;
-                System.out.println("Best score: " + topscore);
-                printBoard(board);
-                System.out.println();
-            }
+            // int score = evaluate(board);
+            // if (score > topscore){
+            //     topscore = score;
+            //     System.out.println("Best score: " + topscore);
+            //     printBoard(board);
+            //     System.out.println();
+            // }
             // if (score == -2){
             //     printBoard(board);
             // }
@@ -113,8 +113,8 @@ public class MinimaxBot extends Bot {
 
         // If it is the minimizing player's turn
         else {
-            int bestScore = Integer.MIN_VALUE;
-            // int bestScore = Integer.MAX_VALUE;
+            // int bestScore = Integer.MIN_VALUE;
+            int bestScore = Integer.MAX_VALUE;
             // Check all possible moves
             for (int i = 0; i < 8; i++) {
                 if (prune) {
@@ -137,8 +137,8 @@ public class MinimaxBot extends Bot {
                         // Evaluate the board
                         int score = minimax(copyBoard, depth + 1, alpha, beta, true, roundsLeft - 1);
                         // Update the best score
-                        bestScore = Math.max(score, bestScore);
-                        // bestScore = Math.min(score, bestScore);
+                        // bestScore = Math.max(score, bestScore);
+                        bestScore = Math.min(score, bestScore);
                         beta = Math.min(beta, score);
                         // Prune the tree
                         if (beta <= alpha) {
