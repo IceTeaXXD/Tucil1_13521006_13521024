@@ -1,8 +1,7 @@
 # Adversarial Adjacency-Strategy-Game
 > Tugas Kecil 1 IF3170 Inteligensi Buatan
-<kbd>
-  ![](screenshots/New-game-board.png)
-</kbd>
+
+![](screenshots/New-game-board.png)
 
 ## Table of Contents
 1. [General Information](#general-information)
