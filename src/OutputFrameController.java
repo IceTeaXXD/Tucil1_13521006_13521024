@@ -82,7 +82,7 @@ public class OutputFrameController {
         } else if (botAlgorithm == 2) {
             this.bot = new HillClimbingBot();
         } else if (botAlgorithm == 3) {
-            this.bot = new GeneticBot();
+            this.bot = new RandomBot();
         }
 
         this.playerXTurn = !isBotFirst;
