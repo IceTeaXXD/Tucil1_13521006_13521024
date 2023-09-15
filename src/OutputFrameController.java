@@ -82,6 +82,8 @@ public class OutputFrameController {
         } else if (botAlgorithm == 2) {
             this.bot = new HillClimbingBot();
         } else if (botAlgorithm == 3) {
+            this.bot = new GeneticBot();
+        } else {
             this.bot = new RandomBot();
         }
 
@@ -381,7 +383,7 @@ public class OutputFrameController {
         int i = botMove[0];
         int j = botMove[1];
         if (!this.buttons[i][j].getText().equals("")) {
-            new Alert(Alert.AlertType.ERROR, "Bot Invalid coordinates: Try again!").showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Bot Invalid coordinates: Try again!" + i + " " + j).showAndWait();
             System.exit(1);
             return;
         }
