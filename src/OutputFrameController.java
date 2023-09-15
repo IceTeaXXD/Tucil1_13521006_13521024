@@ -83,6 +83,8 @@ public class OutputFrameController {
             this.bot = new HillClimbingBot();
         } else if (botAlgorithm == 3) {
             this.bot = new GeneticBot();
+        } else if (botAlgorithm == 4) {
+            this.bot = new GeneticMinimaxBot();
         } else {
             this.bot = new RandomBot();
         }

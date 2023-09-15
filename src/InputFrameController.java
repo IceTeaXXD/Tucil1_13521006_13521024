@@ -53,7 +53,7 @@ public class InputFrameController {
         this.numberOfRounds.setItems(numberOfRoundsDropdown);
         this.numberOfRounds.getSelectionModel().select(27);
         this.botAlgorithm.setItems(FXCollections.observableArrayList("Minimax with Alpha-Beta Pruning",
-                "Hill-Climbing Search", "Genetic Algorithm", "Random Move"));
+                "Hill-Climbing Search", "Genetic Algorithm", "Genetic-Minimax Algorithm", "Random Move"));
         this.player1.setText("Human");
         this.player2.setText("Bot");
 
@@ -106,8 +106,10 @@ public class InputFrameController {
                 botAlgorithm = 2;
             } else if (this.botAlgorithm.getValue().equals("Genetic Algorithm")) {
                 botAlgorithm = 3;
-            } else if (this.botAlgorithm.getValue().equals("Random Move")) {
+            } else if (this.botAlgorithm.getValue().equals("Genetic-Minimax Algorithm")) {
                 botAlgorithm = 4;
+            }else if (this.botAlgorithm.getValue().equals("Random Move")) {
+                botAlgorithm = 5;
             }
             outputFC.getInput(this.player1.getText(), this.player2.getText(), this.numberOfRounds.getValue(),
                     this.isBotFirst.isSelected(), botAlgorithm);
