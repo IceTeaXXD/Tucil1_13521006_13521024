@@ -3,7 +3,7 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 
 public class MinimaxBot extends Bot {
-
+    private static final int MAX_DEPTH = 3;
     /**
      * This bot is a minimax bot. It will evaluate the current state of the board
      * and make a move that will maximize the score.
@@ -46,7 +46,7 @@ public class MinimaxBot extends Bot {
     }
     public int minimax(Button[][] board, int depth, int alpha, int beta, boolean isMaximizing, int roundsLeft) {
         // If the game is over or the depth is reached, evaluate the board
-        if (roundsLeft == 0 || depth == 3) {
+        if (roundsLeft == 0 || depth == MAX_DEPTH) {
             return evaluate(board);
         }
         boolean prune = false;
